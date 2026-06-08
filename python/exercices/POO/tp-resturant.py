@@ -45,7 +45,7 @@ def get_commande_info(prompt: str) -> str:
     try:
         return float(input(prompt).strip())
     except ValueError:
-        print("Entrée invalide. Veuillez entrer un nombre.")
+        print("Entrée invalide. Veuillez entrer un nombre. :")
         return get_commande_info(prompt)
 
     
@@ -62,7 +62,7 @@ def main():
         
         ask_type_commande = [
             inquirer.List('type',
-                message="Quel type de commande souhaitez-vous ?",
+                message="Quel type de commande souhaitez-vous ? :",
                 choices=['Classique', 'Express', 'VIP'],
             ),]
         result_commande_type = inquirer.prompt(ask_type_commande)['type']
@@ -74,14 +74,14 @@ def main():
         elif result_commande_type== "VIP":
             commande = CommandeVIP(id_count, client_name, price_plat, delivery_distance,'VIP')
         else:
-            print("Type de commande invalide. Veuillez entrer Classique, Express ou VIP.")
+            print("Type de commande invalide. Veuillez entrer Classique, Express ou VIP. :")
             continue
         list_commande.append(commande)
         price_total += commande.total_price()
         
         continue_commande = [
             inquirer.List('response',
-                message="Voulez-vous ajouter une autre commande ?",
+                message="Voulez-vous ajouter une autre commande ? :",
                 choices=['Oui', 'Non'],
             ),]
         add_commande = inquirer.prompt(continue_commande)['response']
@@ -99,17 +99,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-    
-    
-    
-# commande1 = CommandeClassique(1, "Alice", 25, 4, "Classique")
-# commande2 = CommandeExpress(2, "Bob", 30, 3, "Express")
-# commande3 = CommandeVIP(3, "Claude", 50, 6, "VIP")
-# commande4 = CommandeClassique(4, "Didier", 18, 2, "Classique")
-
-# commande1.print_commande()
-# commande2.print_commande()
-# commande3.print_commande()
-# commande4.print_commande()
-
-# print(f"Total des commandes : {commande1.total_price() + commande2.total_price() + commande3.total_price() + commande4.total_price()}")
