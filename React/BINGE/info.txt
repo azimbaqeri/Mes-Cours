@@ -1,0 +1,6 @@
+
+https://api.themoviedb.org/3/search/movie?query=spiderman
+
+api_key=d648526bd4cd91071d39c14476654d03
+
+https://image.tmdb.org/t/p/w500/kjdJntyBeEvqm9w97QGBdxPptzj.jpg

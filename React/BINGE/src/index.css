@@ -1,0 +1,157 @@
+/* Core Styling Rules & Configs */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    
+    --primary: #0d063e;
+    --secondary: #1558aa;
+    --text-dark: #000000;
+    --text-muted: #555555;
+    --border-color: #443e3e;
+    --bg-light-blue: #DBE4FA;
+}
+body {
+    background-color: #e5e6d6;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    
+}
+header {
+    vertical-align: middle;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    
+}
+header h1 {
+    margin: 0;
+}
+header img {
+    width: 200px;
+    margin-right: 10px;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+.container { 
+    margin: 0 auto;
+    padding: 20px;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background-color: var(--secondary);
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+}
+.navbar form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.navbar div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+
+
+.navbar input[type="text"] {
+    padding: 5px 10px;
+    width: 400px;
+    border: none;
+    width: 100%;
+}
+.navbar button {
+    padding: 5px 10px;
+    background-color: var(--bg-light-blue);
+    color: #1558aa;
+    border: none;
+    cursor: pointer;
+}
+.navbar button:hover {
+    background-color: #ddd;
+}
+footer {
+    background-color: #0d063e;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Add styles for the movie list and movie items */
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.movie-card {
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--secondary);
+    color: #fff;
+    cursor: pointer;
+}
+.movie-card img {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: fill;
+}
+.card-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+    .navbar input[type="text"] {
+        width: 400px;
+    }
+    .navbar form {
+        flex-direction: row;
+        gap: 10px;
+        width: initial;
+    }
+    .navbar div {
+        flex-direction: row;
+        gap: 10px;
+        width: initial;
+    }
+
+}
