@@ -1,135 +1,80 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import type { Movie } from "./types/Movie";
 import Header from "./Header";
 import Footer from "./Footer";
 
-type AppLocationState = {
-  movies?: Movie[];
-  searchTerm?: string;
+type TVShow = {
+  id: number;
+  name: string;
+  overview: string;
+  firstAirDate: string;
+  year: number | string;
+  posterUrl: string;
+  rating: number;
 };
 
 function App() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const state = (location.state ?? {}) as AppLocationState;
-  const [searchTerm, setSearchTerm] = useState(state.searchTerm ?? "");
-  const [movies, setMovies] = useState<Movie[]>(state.movies ?? []);
+  const [shows, setShows] = useState<TVShow[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Keep current home-route history entry in sync with search state.
-    // This allows browser back to restore the previous results.
-    navigate(".", { replace: true, state: { movies, searchTerm } });
-  }, [movies, searchTerm, navigate]);
-
-  const handleSearch = () => {
-    // Implement search functionality here
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-    if (searchTerm.trim() === "") {
-      alert("Please enter a search term");
-      return;
-    } else {
-      fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setMovies(data.results.map(transformMovie));
-          // Handle the search results here
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    }
-  };
+    fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setShows(data.results.map(transformShow));
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching TV shows:", err);
+        setLoading(false);
+      });
+  }, []);
 
-  function transformMovie(film: any): Movie {
+  function transformShow(show: any): TVShow {
     const baseUrl = "https://image.tmdb.org/t/p/w500";
     return {
-      id: film.id,
-      title: film.title || "Untitled",
-      overview: film.overview || "No overview available",
-      releaseDate: film.release_date || "Unknown",
-      year: film.release_date
-        ? new Date(film.release_date).getFullYear()
+      id: show.id,
+      name: show.name || "Untitled",
+      overview: show.overview || "No overview available",
+      firstAirDate: show.first_air_date || "Unknown",
+      year: show.first_air_date
+        ? new Date(show.first_air_date).getFullYear()
         : "Unknown",
-      posterUrl: film.poster_path
-        ? baseUrl + film.poster_path
-        : "https://placehold.co/300x400?text=No%20Movie\n%20Image",
-      rating: film.vote_average || 0,
+      posterUrl: show.poster_path
+        ? baseUrl + show.poster_path
+        : "https://placehold.co/300x400?text=No%20Image",
+      rating: show.vote_average || 0,
     };
   }
-  const handleSaveJson = () => {
-    if (movies.length === 0) {
-      alert("No movies to save. Please perform a search first.");
-      return;
-    }
-    const json = JSON.stringify(movies, null, 2);
-    const blob = new Blob([json], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "movies.json";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+
   return (
     <>
       <Header />
       <main>
-        <div className="navbar">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSearch();
-            }}
-          >
-            <input
-              type="text"
-              className="search"
-              value={searchTerm}
-              placeholder="Rechercher un film..."
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onSubmit={handleSearch}
-            />
-            <div>
-              <button onClick={handleSearch}>Recherche</button>
-              <button onClick={handleSaveJson}>Enregistrer au JSON</button>
-            </div>
-          </form>
-        </div>
         <div className="container">
-          {movies.length > 0 ? (
+          <h2 className="section-title">Séries populaires</h2>
+          {loading ? (
+            <p>Chargement...</p>
+          ) : shows.length > 0 ? (
             <div className="movie-list">
-              {movies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="movie-card"
-                  onClick={() =>
-                    navigate(`/MovieDetails/${movie.id}`, {
-                      state: { movie, movies, searchTerm },
-                    })
-                  }
-                >
-                  <img src={movie.posterUrl} alt={movie.title} />
+              {shows.map((show) => (
+                <div key={show.id} className="movie-card">
+                  <img src={show.posterUrl} alt={show.name} />
                   <div className="card-details">
-                    <h4>{movie.title}</h4>
-                    <p>{movie.year}</p>
+                    <h4>{show.name}</h4>
+                    <p>{show.year}</p>
                     <p>
-                      <strong>Rating:</strong> {movie.rating}
+                      <strong>Rating:</strong> {show.rating.toFixed(1)}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p>
-              Aucun film trouvé. Veuillez essayer un autre terme de recherche.
-            </p>
+            <p>Aucune série trouvée.</p>
           )}
         </div>
-
         <Footer />
       </main>
     </>
