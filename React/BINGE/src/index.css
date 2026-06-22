@@ -142,6 +142,11 @@ footer {
     background-color: var(--secondary);
     padding: 50px;
     color: #fff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: soft-light;
+
 }
 .movie-header {
     display: flex;
@@ -153,12 +158,12 @@ footer {
 
 .movie-details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
+    flex-wrap: wrap;
 }
 .movie-details img {
-    width: 500px;
-    height: 600px;
+    max-width: 100%;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -169,6 +174,48 @@ footer {
     gap: 10px;
     flex-wrap: wrap;
     margin: 10px 0;
+}
+.ytplayer {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.moveie-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+.genre_badge {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: var(--primary);
+    color: var(--bg-light-blue);
+    border-radius: 20px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.imdb {
+    font-size: 54px;
+    margin-left: 10px;
+    color: gold;
+    
+}
+.production-companies {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.production-companies img {
+    max-height: 50px;
+    object-fit: contain;
 }
 @media (min-width: 768px) {
     .navbar input[type="text"] {
@@ -183,6 +230,16 @@ footer {
         flex-direction: row;
         gap: 10px;
         width: initial;
+    }
+    .movie-details {
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: nowrap;
+    }
+    .ytplayer {
+    width: 1000px;
+    height: 100%;
+    border-radius: 5px;
     }
 
 }

@@ -5,6 +5,8 @@ api_key=d648526bd4cd91071d39c14476654d03
 
 https://image.tmdb.org/t/p/w500/kjdJntyBeEvqm9w97QGBdxPptzj.jpg
 
+no2cllXSRA56LPipQnuPlg3RuTL.jpg
+https://image.tmdb.org/t/p/w500/no2cllXSRA56LPipQnuPlg3RuTL.jpg
 https://api.themoviedb.org/3/movie/557?api_key=d648526bd4cd91071d39c14476654d03
 
 
