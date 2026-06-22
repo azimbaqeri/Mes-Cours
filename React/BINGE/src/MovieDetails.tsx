@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import type { MovieDetail } from "./types/MovieDetail";
 import React from "react";
-import { FaStar, FaImdb } from "react-icons/fa";
+import { FaStar, FaImdb} from "react-icons/fa";
+import { TbMovieOff } from "react-icons/tb";
 
 function MovieDetails() {
   const { id } = useParams();
@@ -100,7 +101,7 @@ function MovieDetails() {
               <h1>{movieDetails?.title}</h1>
               <p>
                 {movieDetails?.year} - {formatRuntime(movieDetails?.runtime)} -
-                Langue d'origine:{" "}
+                Original Language:{" "}
                 {movieDetails?.original_language.toUpperCase()} (
                 {movieDetails?.origin_country.join(", ")})
               </p>
@@ -129,7 +130,8 @@ function MovieDetails() {
               <img src={movieDetails?.posterUrl} alt={movieDetails?.title} />
             </div>
             <div className="movie-trailer">
-              <iframe
+              {movieDetails?.trailerUrl ? (
+                <iframe
                 className="ytplayer"
                 src={
                   movieDetails?.trailerUrl
@@ -138,6 +140,15 @@ function MovieDetails() {
                 }
                 frameBorder="0"
               ></iframe>
+              ) : (
+                <div className="no-trailer">
+                  <p><TbMovieOff size={200} color="red" /></p>
+                  <p>No trailer available for this movie.</p>
+                  
+                </div>
+              )}  
+                
+              
             </div>
             {/* "https://www.youtube.com/watch?v=t06RUxPbp_c" */}
           </div>
@@ -151,16 +162,27 @@ function MovieDetails() {
             </div>
             <div className="movie-info">
               <p>{movieDetails?.overview}</p>
-              <div className="production-companies">
-                {movieDetails?.production_companies_logo.map((logo, index) => (
-                  <img
-                    key={index}
-                    src={logo}
-                    alt={movieDetails?.production_companies[index]}
-                  />
+            </div>
+            <div className="production-companies">
+              <h4>Production Companies:</h4>
+
+                {
+                
+                movieDetails?.production_companies_logo.map((logo, index) => (
+                  logo == 'https://image.tmdb.org/t/p/w500null'? (
+                    <p key={index}>
+                      {movieDetails?.production_companies[index]}
+                    </p>
+                    
+                  ) : (
+                    <img
+                      key={index}
+                      src={logo}
+                      alt={movieDetails?.production_companies[index]}
+                    />
+                  )
                 ))}
               </div>
-            </div>
           </div>
         </div>
       </div>

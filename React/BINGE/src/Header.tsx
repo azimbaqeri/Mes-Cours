@@ -1,11 +1,12 @@
 import logo from "./assets/logo.png";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { Movie } from "./types/Movie";
+import { SiThemoviedatabase } from "react-icons/si";
+
 
 function Header() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -47,27 +48,15 @@ function Header() {
     };
   }
 
-  const handleSaveJson = () => {
-    if (movies.length === 0) {
-      alert("No movies to save. Please perform a search first.");
-      return;
-    }
-    const json = JSON.stringify(movies, null, 2);
-    const blob = new Blob([json], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "movies.json";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
+    <>
     <header>
       <a href="/">
         <img src={logo} alt="IMDB Logo" width="100" />
       </a>
-      <div className="navbar">
+      
+    </header>
+    <div className="navbar">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -82,14 +71,11 @@ function Header() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div>
-            <button type="submit">Recherche</button>
-            <button type="button" onClick={handleSaveJson}>
-              Enregistrer au JSON
-            </button>
+            <button type="submit"><SiThemoviedatabase size={30} /> Recherche </button>
           </div>
         </form>
       </div>
-    </header>
+      </>
   );
 }
 

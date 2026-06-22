@@ -45,7 +45,7 @@ function Search() {
                   <h4>{movie.title}</h4>
                   <p>{movie.year}</p>
                   <p>
-                    <strong>Rating:</strong> {movie.rating}
+                    <strong>Rating:</strong> {movie.rating.toFixed(1)}
                   </p>
                 </div>
               </div>
