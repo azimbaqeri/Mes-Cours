@@ -33,6 +33,8 @@ function App() {
         .catch(error => {
           console.error('Error fetching data:', error)
         })
+
+        
     }
     
   }
@@ -80,6 +82,7 @@ function App() {
       </form>
       </div>
       <div className="container">
+        
       {movies.length > 0 ? (
         <div className="movie-list">
           {movies.map((movie) => (
@@ -103,6 +106,7 @@ function App() {
         <p>Aucun film trouvé. Veuillez essayer un autre terme de recherche.</p>
       )}
       </div>
+      
       <Footer />
       </main>
     </>

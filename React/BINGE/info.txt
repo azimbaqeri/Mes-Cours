@@ -1,6 +1,31 @@
 
-https://api.themoviedb.org/3/search/movie?query=spiderman
+https://api.themoviedb.org/3/search/movie?query=spiderman&api_key=d648526bd4cd91071d39c14476654d03
 
 api_key=d648526bd4cd91071d39c14476654d03
 
 https://image.tmdb.org/t/p/w500/kjdJntyBeEvqm9w97QGBdxPptzj.jpg
+
+https://api.themoviedb.org/3/movie/557?api_key=d648526bd4cd91071d39c14476654d03
+
+
+trailers
+https://api.themoviedb.org/3/movie/557/videos?api_key=d648526bd4cd91071d39c14476654d03
+
+images
+https://api.themoviedb.org/3/movie/557/images?api_key=d648526bd4cd91071d39c14476654d03
+
+
+Popular
+
+Copy Page
+get
+https://api.themoviedb.org/3/movie/popular
+
+Top rated
+https://api.themoviedb.org/3/movie/top_rated?api_key=d648526bd4cd91071d39c14476654d03
+
+Upcoming
+
+Copy Page
+get
+https://api.themoviedb.org/3/movie/upcoming
