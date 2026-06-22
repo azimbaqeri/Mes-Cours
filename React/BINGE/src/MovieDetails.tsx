@@ -1,8 +1,6 @@
 import { useParams } from "react-router-dom";
 import type { MovieDetail } from "./types/MovieDetail";
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import { FaStar, FaImdb } from "react-icons/fa";
 
 function MovieDetails() {
@@ -79,7 +77,7 @@ function MovieDetails() {
         : "Unknown",
       posterUrl: film.poster_path
         ? baseUrl + film.poster_path
-        : "https://placehold.co/300x400?text=No%20Movie\n%20Image",
+        : "https://placehold.co/300x400?text=No%20Movie%20Image",
       backgroundImageUrl: film.backdrop_path
         ? `https://image.tmdb.org/t/p/w1920${film.backdrop_path}`
         : null,
@@ -90,16 +88,13 @@ function MovieDetails() {
 
   console.log("Fetched movie details:", movieDetails); // Log the fetched movie details
   return (
-    <>
-      <Header />
-
-      <div className="container">
-        <div
-          className="movie-details-container"
-          style={{
-            backgroundImage: `url(${movieDetails?.backgroundImageUrl})`,
-          }}
-        >
+    <div className="container">
+      <div
+        className="movie-details-container"
+        style={{
+          backgroundImage: `url(${movieDetails?.backgroundImageUrl})`,
+        }}
+      >
           <div className="movie-header">
             <div className="title">
               <h1>{movieDetails?.title}</h1>
@@ -170,8 +165,6 @@ function MovieDetails() {
         </div>
       </div>
 
-      <Footer />
-    </>
   );
 }
 
