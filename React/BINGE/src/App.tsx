@@ -1,12 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import type { Movie } from "./types/Movie";
-import {useLocation, useNavigate } from "react-router-dom";
-
-type SearchLocationState = {
-  movies?: Movie[];
-  searchTerm?: string;
-};
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [movies, setmovies] = useState<Movie[]>([]);
@@ -14,9 +9,6 @@ function App() {
   const [comingSoonMovies, setComingSoonMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = (location.state ?? {}) as SearchLocationState;
-  const [searchTerm, setSearchTerm] = useState(state.searchTerm ?? "");
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -74,22 +66,24 @@ function App() {
       rating: movie.vote_average || 0,
     };
   }
-  console.log("movies:", movies);
   return (
     <main>
       <div className="container popular-movies">
-        <h2 className="section-title">Film populaires</h2>
+        <h2 className="section-title">Popular Movies</h2>
         {loading ? (
           <p>Chargement...</p>
         ) : movies.length > 0 ? (
           <div className="movie-list">
             {movies.slice(0, 4).map((movie) => (
-              <div key={movie.id} className="movie-card" 
-              onClick={() =>
+              <div
+                key={movie.id}
+                className="movie-card"
+                onClick={() =>
                   navigate(`/MovieDetails/${movie.id}`, {
-                    state: { movie, movies, searchTerm },
+                    state: { movie, movies },
                   })
-                }>
+                }
+              >
                 <img src={movie.posterUrl} alt={movie.title} />
                 <div className="card-details">
                   <h4>{movie.title}</h4>
@@ -107,18 +101,21 @@ function App() {
       </div>
 
       <div className="container popular-movies">
-        <h2 className="section-title">Top Rated Film</h2>
+        <h2 className="section-title">Top Rated Movies</h2>
         {loading ? (
           <p>Chargement...</p>
         ) : topRatedMovies.length > 0 ? (
           <div className="movie-list">
             {topRatedMovies.slice(0, 4).map((movie) => (
-              <div key={movie.id} className="movie-card" 
-              onClick={() =>
+              <div
+                key={movie.id}
+                className="movie-card"
+                onClick={() =>
                   navigate(`/MovieDetails/${movie.id}`, {
-                    state: { movie, movies, searchTerm },
+                    state: { movie, movies },
                   })
-                }>
+                }
+              >
                 <img src={movie.posterUrl} alt={movie.title} />
                 <div className="card-details">
                   <h4>{movie.title}</h4>
@@ -135,19 +132,22 @@ function App() {
         )}
       </div>
 
-<div className="container popular-movies">
-        <h2 className="section-title">Up comming Film</h2>
+      <div className="container popular-movies">
+        <h2 className="section-title">Upcoming Movies</h2>
         {loading ? (
           <p>Chargement...</p>
         ) : comingSoonMovies.length > 0 ? (
           <div className="movie-list">
             {comingSoonMovies.slice(0, 4).map((movie) => (
-              <div key={movie.id} className="movie-card" 
-              onClick={() =>
+              <div
+                key={movie.id}
+                className="movie-card"
+                onClick={() =>
                   navigate(`/MovieDetails/${movie.id}`, {
-                    state: { movie, movies, searchTerm },
+                    state: { movie, movies },
                   })
-                }>
+                }
+              >
                 <img src={movie.posterUrl} alt={movie.title} />
                 <div className="card-details">
                   <h4>{movie.title}</h4>
@@ -163,7 +163,6 @@ function App() {
           <p>Aucune série trouvée.</p>
         )}
       </div>
-
     </main>
   );
 }

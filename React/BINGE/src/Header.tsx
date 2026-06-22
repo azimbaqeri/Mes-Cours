@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 import type { Movie } from "./types/Movie";
 import { SiThemoviedatabase } from "react-icons/si";
 
-
 function Header() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [movies, setMovies] = useState<Movie[]>([]);
 
   const handleSearch = () => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -22,7 +20,6 @@ function Header() {
       .then((response) => response.json())
       .then((data) => {
         const transformedMovies = data.results.map(transformMovie);
-        setMovies(transformedMovies);
         navigate("/search", {
           state: { movies: transformedMovies, searchTerm },
           replace: true,
@@ -50,13 +47,12 @@ function Header() {
 
   return (
     <>
-    <header>
-      <a href="/">
-        <img src={logo} alt="IMDB Logo" width="100" />
-      </a>
-      
-    </header>
-    <div className="navbar">
+      <header>
+        <a href="/">
+          <img src={logo} alt="IMDB Logo" width="100" />
+        </a>
+      </header>
+      <div className="navbar">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -71,11 +67,13 @@ function Header() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div>
-            <button type="submit"><SiThemoviedatabase size={30} /> Recherche </button>
+            <button type="submit">
+              <SiThemoviedatabase size={30} /> Recherche{" "}
+            </button>
           </div>
         </form>
       </div>
-      </>
+    </>
   );
 }
 
